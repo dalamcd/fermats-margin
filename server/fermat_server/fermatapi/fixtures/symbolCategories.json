@@ -1,0 +1,26 @@
+[
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 1,
+		"fields": {
+			"symbol_id": 3,
+			"category_id": 1
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 2,
+		"fields": {
+			"symbol_id": 1,
+			"category_id": 2
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 3,
+		"fields": {
+			"symbol_id": 2,
+			"category_id": 1
+		}
+	}
+]

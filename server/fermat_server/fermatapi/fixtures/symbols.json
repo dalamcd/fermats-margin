@@ -1,0 +1,34 @@
+[
+	{
+		"model": "fermatapi.symbol",
+		"pk": 1,
+		"fields": {
+			"name": "Summation",
+			"entity_code": 931
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 2,
+		"fields": {
+			"name": "Integral",
+			"entity_code": 8747
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 3,
+		"fields": {
+			"name": "Union",
+			"entity_code": 8899
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 4,
+		"fields": {
+			"name": "Intersection",
+			"entity_code": 8898
+		}
+	}
+]

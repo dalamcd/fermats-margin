@@ -1,0 +1,23 @@
+[
+	{
+		"model": "fermatapi.category",
+		"pk": 1,
+		"fields": {
+			"name": "Set Theory"
+		}
+	},
+	{
+		"model": "fermatapi.category",
+		"pk": 2,
+		"fields": {
+			"name": "Calculus"
+		}
+	},
+	{
+		"model": "fermatapi.category",
+		"pk": 3,
+		"fields": {
+			"name": "Algebra"
+		}
+	}
+]
