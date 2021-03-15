@@ -9,9 +9,8 @@ function App() {
     <div className="App">
       <header className="App-header">
         <SymbolProvider>
-          <SymbolGrid />
+          <Canvas />
         </SymbolProvider>
-        <Canvas />
       </header>
     </div>
   );

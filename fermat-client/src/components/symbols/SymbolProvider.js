@@ -2,6 +2,8 @@ import React, { createContext, useContext, useState } from "react"
 
 export const SymbolContext = createContext()
 
+
+
 export const SymbolProvider = props => {
 
 	const [symbols, setSymbols] = useState([])
