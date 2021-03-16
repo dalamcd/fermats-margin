@@ -29,17 +29,17 @@ export const Canvas = props => {
 		ctx.clearRect(0, 0, canvas.width, canvas.height)
 		ctx.font = "30px Courier";
 		ctx.textBaseline = "top"
-	
+
 		const length = symbols.length
-	
-		for(let row = 0; row < Math.floor((length) / rowLength) + length % rowLength; row++) {
-			for(let col = 0; col < rowLength; col++) {
+
+		for (let row = 0; row < Math.floor((length) / rowLength) + length % rowLength; row++) {
+			for (let col = 0; col < rowLength; col++) {
 				// This is kind of hacky but it makes it work for an abritrary grid size
-				let index = col+row*rowLength
+				let index = col + row * rowLength
 				if (index < length) {
-	
-					let x = gridPadding+cellSize*col
-					let y = gridPadding+cellSize*row
+
+					let x = gridPadding + cellSize * col
+					let y = gridPadding + cellSize * row
 					ctx.fillText(String.fromCharCode(symbols[index].entity_code),
 						x, y);
 					let gridSymbol = {
@@ -57,43 +57,51 @@ export const Canvas = props => {
 		}
 	}
 
-	const  getMousePos = (e) => {
-        var rect = canvas.getBoundingClientRect();
-        return {
-          posX: e.clientX - rect.left,
-          posY: e.clientY - rect.top
-        };
-      }
-
-	let symbolClicked = false;
-	let clickedSymbol = {};
+	const getMousePos = (e) => {
+		const rect = canvas.getBoundingClientRect();
+		return {
+			posX: e.clientX - rect.left,
+			posY: e.clientY - rect.top
+		};
+	}
 
 	const checkSymbolInGrid = (symbol, mousePos) => {
 
-		if(symbol.x < mousePos.posX && symbol.y < mousePos.posY && symbol.x + cellSize > mousePos.posX &&
-				symbol.y + cellSize > mousePos.posY)
+		if (symbol.x < mousePos.posX && symbol.y < mousePos.posY && symbol.x + cellSize > mousePos.posX &&
+			symbol.y + cellSize > mousePos.posY)
 			return true
 		else
 			return false
 	}
 
+	let clickedSymbol = {};
+
 	const handleGridClickEvent = (e, mousePos) => {
 		gridSymbols.map(symbol => {
 			if (checkSymbolInGrid(symbol, mousePos)) {
-				console.log(symbol.name)
+				clickedSymbol = symbol
 			}
 		})
 	}
 
-	const handleCanvasClickEvent = e => {
+	const handleCanvasMouseDown = e => {
 		const mousePos = getMousePos(e)
-		if(mousePos.posX < grid.width && mousePos.posY < grid.height) {
+		if (mousePos.posX < grid.width && mousePos.posY < grid.height) {
 			handleGridClickEvent(e, mousePos)
-		} 
+		}
 	}
 
 	const handleMouseMove = e => {
+		if (clickedSymbol.entity_code) {
+			const mousePos = getMousePos(e);
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			DrawGrid(symbols, rowLength, gridPadding, cellSize)
+			ctx.fillText(String.fromCharCode(clickedSymbol.entity_code), mousePos.posX, mousePos.posY)
+		}
+	}
 
+	const handleCanvasMouseUp = e => {
+		clickedSymbol = {}
 	}
 
 	if (canvasRef.current) {
@@ -109,8 +117,8 @@ export const Canvas = props => {
 
 	return (
 		<>
-			<canvas width={500} height={500} ref={canvasRef} onMouseDown={handleCanvasClickEvent} 
-				onMouseMove={handleMouseMove}></canvas>
+			<canvas width={500} height={500} ref={canvasRef} onMouseDown={handleCanvasMouseDown}
+				onMouseMove={handleMouseMove} onMouseUp={handleCanvasMouseUp}></canvas>
 		</>
 	);
 }
