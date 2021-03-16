@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm -rf fermatapi/migrations
+rm -rf fermat_server/fermatapi/migrations
 rm db.sqlite3
 python3 manage.py makemigrations fermatapi
 python3 manage.py migrate

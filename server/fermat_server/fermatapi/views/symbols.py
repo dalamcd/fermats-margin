@@ -27,7 +27,7 @@ class Symbols(ViewSet):
 
 		category = self.request.query_params.get("category", None)
 
-		data = SymbolSerializer(symbol, many=True, context={'request': request}).data
+		data = SymbolSerializer(symbol, many=False, context={'request': request}).data
 
 		return Response(data)
 

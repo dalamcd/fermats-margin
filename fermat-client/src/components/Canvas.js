@@ -5,12 +5,15 @@ import { SymbolContext } from "./symbols/SymbolProvider"
 
 export const Canvas = props => {
 
+	const canvasRef = useRef();
 	const cellSize = 50;
 	const gridPadding = 50;
 	const rowLength = 2;
-	let gridSymbols = []
+	let gridSymbols = [];
+	let equationSymbols = [];
 	let ctx;
 	let canvas;
+	let clickedSymbol = {};
 
 	const grid = {
 		width: 300,
@@ -23,10 +26,12 @@ export const Canvas = props => {
 		getSymbols();
 	}, [])
 
-	const canvasRef = useRef();
+	const redraw = () => {
+		ctx.clearRect(0, 0, canvas.width, canvas.height)
+		DrawGrid(symbols, rowLength, gridPadding, cellSize)
+	}
 
 	const DrawGrid = (symbols, rowLength, gridPadding, cellSize) => {
-		ctx.clearRect(0, 0, canvas.width, canvas.height)
 		ctx.font = "30px Courier";
 		ctx.textBaseline = "top"
 
@@ -74,8 +79,6 @@ export const Canvas = props => {
 			return false
 	}
 
-	let clickedSymbol = {};
-
 	const handleGridClickEvent = (e, mousePos) => {
 		gridSymbols.map(symbol => {
 			if (checkSymbolInGrid(symbol, mousePos)) {
@@ -92,16 +95,17 @@ export const Canvas = props => {
 	}
 
 	const handleMouseMove = e => {
+		const mousePos = getMousePos(e);
+		redraw();
+		ctx.fillText(`MouseX: ${mousePos.posX} MouseY: ${mousePos.posY}`, 20, window.innerHeight - 70)
 		if (clickedSymbol.entity_code) {
-			const mousePos = getMousePos(e);
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			DrawGrid(symbols, rowLength, gridPadding, cellSize)
 			ctx.fillText(String.fromCharCode(clickedSymbol.entity_code), mousePos.posX, mousePos.posY)
 		}
 	}
 
 	const handleCanvasMouseUp = e => {
-		clickedSymbol = {}
+		clickedSymbol = {};
+		redraw();
 	}
 
 	if (canvasRef.current) {
@@ -111,7 +115,7 @@ export const Canvas = props => {
 		ctx = canvas.getContext('2d');
 
 		if (symbols.length) {
-			DrawGrid(symbols, rowLength, gridPadding, cellSize)
+			redraw();
 		}
 	}
 
