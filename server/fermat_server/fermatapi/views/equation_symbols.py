@@ -4,9 +4,9 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
-from fermat_server.fermatapi.models import EquationSymbol
+from fermat_server.fermatapi.models import EquationSymbol, Symbol, Equation
 
-class Symbols(ViewSet):
+class EquationSymbols(ViewSet):
 
 	def list(self, request):
 
@@ -27,8 +27,8 @@ class Symbols(ViewSet):
 	def create(self, request):
 
 		symbol = EquationSymbol()
-		symbol.symbol = request.data["symbol"]
-		symbol.equation = request.data["equation"]
+		symbol.symbol = Symbol.objects.get(pk=request.data["symbol"])
+		symbol.equation = Equation.objects.get(pk=request.data["equation"])
 		symbol.x = request.data["x"]
 		symbol.y = request.data["y"]
 		symbol.size = request.data["size"]
