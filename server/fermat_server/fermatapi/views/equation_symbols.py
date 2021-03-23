@@ -39,7 +39,25 @@ class EquationSymbols(ViewSet):
 
 		return Response(data, status=status.HTTP_201_CREATED)
 
+	def update(self, request, pk=None):
 
+		symbol = EquationSymbol.objects.get(pk=pk)
+		symbol.x = request.data["x"]
+		symbol.y = request.data["y"]
+		symbol.size = request.data["size"]
+
+		symbol.save()
+
+		data = EquationSymbolSerializer(symbol, many=False, context={'request': request}).data
+
+		return Response(data)
+	
+	def destory(self, request, pk=None):
+		symbol = EquationSymbol.object.get(pk=pk)
+
+		symbol.delete()
+
+		return Response({}, status=status.HTTP_204_NO_CONTENT)
 
 class EquationSymbolSerializer(serializers.ModelSerializer):
 
