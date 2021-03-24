@@ -2,12 +2,11 @@ import React, { createContext, useState } from "react"
 
 export const SymbolContext = createContext()
 
-
-
 export const SymbolProvider = props => {
 
-	const [symbols, setSymbols] = useState([])
-	const [equationSymbols, setEquationSymbols] = useState([])
+	const [symbols, setSymbols] = useState([]);
+	const [equationSymbols, setEquationSymbols] = useState([]);
+	const [categories, setCategories] = useState([]);
 
 	const getSymbols = () => {
 		return fetch("http://localhost:8000/symbols")
@@ -15,8 +14,14 @@ export const SymbolProvider = props => {
 		.then(setSymbols)
 	}
 
+	const getCategories = () => {
+		return fetch(`http://localhost:8000/categories`)
+		.then(res => res.json())
+		.then(setCategories)
+	}
+
 	const getSymbolsByCategory = id => {
-		return fetch(`http:/localhost:8000/symbols?category=${id}`)
+		return fetch(`http://localhost:8000/symbols?category=${id}`)
 		.then(res => res.json())
 		.then(setSymbols)
 	}
@@ -29,17 +34,25 @@ export const SymbolProvider = props => {
 
 	const addEquationSymbol = symbol => {
 		return fetch(`http://localhost:8000/equationsymbols`, {
-			method: "post",
+			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
 			},
 			body: JSON.stringify(symbol)
 		})
-		.then(getEquationSymbols)
+		.then(() => {
+			getSymbolsForEquation(symbol.equation)
+		})
 	}
 
 	const getEquationSymbols = () => {
 		return fetch(`http://localhost:8000/equationsymbols`)
+		.then(res => res.json())
+		.then(setEquationSymbols)
+	}
+
+	const getSymbolsForEquation = equationId => {
+		return fetch(`http://localhost:8000/equationsymbols/${equationId}`)
 		.then(res => res.json())
 		.then(setEquationSymbols)
 	}
@@ -64,7 +77,8 @@ export const SymbolProvider = props => {
 
 	return <SymbolContext.Provider value={{
 		symbols, setSymbols, getSymbols, getSymbolsByCategory, getSymbolById, addEquationSymbol, getEquationSymbols,
-		equationSymbols, setEquationSymbols, updateEquationSymbol, removeEquationSymbol
+		equationSymbols, setEquationSymbols, updateEquationSymbol, removeEquationSymbol, getSymbolsForEquation,
+		categories, getCategories
 	}}>
 		{props.children}
 	</SymbolContext.Provider>

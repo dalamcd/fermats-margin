@@ -1,0 +1,26 @@
+[
+	{
+		"model": "fermatapi.equation",
+		"pk": 1,
+		"fields": {
+			"name": "Test1",
+			"user_id": "9ba45f09651c5b0c404f37a2d2572c026c146688"
+		}
+	},
+	{
+		"model": "fermatapi.equation",
+		"pk": 2,
+		"fields": {
+			"name": "Test2",
+			"user_id": "9ba45f09651c5b0c404f37a2d2572c026c146688"
+		}
+	},
+	{
+		"model": "fermatapi.equation",
+		"pk": 3,
+		"fields": {
+			"name": "Test3",
+			"user_id": "9ba45f09651c5b0c404f37a2d2572c026c146688"
+		}
+	}
+]

@@ -7,7 +7,9 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
-from fermat_server.fermatapi.models import Equation
+from fermat_server.fermatapi.models import Equation, EquationSymbol
+from rest_framework.authtoken.models import Token
+
 
 class Equations(ViewSet):
 
@@ -30,7 +32,7 @@ class Equations(ViewSet):
 	def create(self, request):
 
 		equation = Equation()
-		equation.user = request.auth.user
+		equation.user = Token.objects.get(pk=request.data["user"])
 		equation.name = request.data["name"]
 
 		equation.save()
@@ -39,7 +41,17 @@ class Equations(ViewSet):
 
 		return Response(data, status=status.HTTP_201_CREATED)
 
+	def destroy(self, request, pk=None):
 
+		symbols = EquationSymbol.objects.filter(equation=pk)
+
+		symbols.delete()
+
+		equation = Equation.objects.get(pk=pk)
+
+		equation.delete()
+
+		return Response({}, status=status.HTTP_204_NO_CONTENT)
 
 class EquationSerializer(serializers.ModelSerializer):
 
