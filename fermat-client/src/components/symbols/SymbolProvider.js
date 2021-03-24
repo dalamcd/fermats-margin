@@ -5,6 +5,7 @@ export const SymbolContext = createContext()
 export const SymbolProvider = props => {
 
 	const [symbols, setSymbols] = useState([]);
+	const [categorySymbols, setCategorySymbols] = useState([])
 	const [equationSymbols, setEquationSymbols] = useState([]);
 	const [categories, setCategories] = useState([]);
 
@@ -23,7 +24,7 @@ export const SymbolProvider = props => {
 	const getSymbolsByCategory = id => {
 		return fetch(`http://localhost:8000/symbols?category=${id}`)
 		.then(res => res.json())
-		.then(setSymbols)
+		.then(setCategorySymbols)
 	}
 
 	const getSymbolById = id => {
@@ -65,7 +66,9 @@ export const SymbolProvider = props => {
 			},
 			body: JSON.stringify(symbol)
 		})
-		.then(getEquationSymbols)
+		.then(() => {
+			getSymbolsForEquation(symbol.equation)
+		})
 	}
 
 	const removeEquationSymbol = id => {
@@ -78,7 +81,7 @@ export const SymbolProvider = props => {
 	return <SymbolContext.Provider value={{
 		symbols, setSymbols, getSymbols, getSymbolsByCategory, getSymbolById, addEquationSymbol, getEquationSymbols,
 		equationSymbols, setEquationSymbols, updateEquationSymbol, removeEquationSymbol, getSymbolsForEquation,
-		categories, getCategories
+		categories, getCategories, categorySymbols, setCategorySymbols
 	}}>
 		{props.children}
 	</SymbolContext.Provider>

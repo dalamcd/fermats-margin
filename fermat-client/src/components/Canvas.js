@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
 import { EquationContext } from "./equations/EquationsProvider";
 import { SymbolContext } from "./symbols/SymbolProvider"
+import { EquationTextContext } from "./symbols/EquationTextProvider";
 
 
 export const Canvas = props => {
@@ -10,6 +11,8 @@ export const Canvas = props => {
 	const loadEquation = useRef();
 	const newDialog = React.createRef();
 	const newEquation = useRef();
+	const addTextDialog = React.createRef();
+	const newText = useRef();
 
 	const [currentEquation, setCurrentEquation] = useState(1)
 	const [currentCategory, setCurrentCategory] = useState(1)
@@ -25,6 +28,7 @@ export const Canvas = props => {
 	let selectedWhiteboardSymbol = undefined;
 	let loadPos = {};
 	let newPos = {};
+	let addTextPos = {};
 
 	const grid = {
 		width: 300,
@@ -33,12 +37,16 @@ export const Canvas = props => {
 
 	const { symbols, getSymbols, getSymbolById, addEquationSymbol, removeEquationSymbol,
 		equationSymbols, getSymbolsForEquation, updateEquationSymbol, categories, getCategories,
-		getSymbolsByCategory } = useContext(SymbolContext);
+		getSymbolsByCategory, categorySymbols } = useContext(SymbolContext);
 
 	const { equations, getEquations, getEquationsByUser, addEquation, removeEquation } = useContext(EquationContext)
 
+	const { equationText, getEquationText, getTextForEquation, addEquationText,
+		updateEquationText, removeEquationText } = useContext(EquationTextContext)
+
 	useEffect(() => {
 		getCategories()
+			.then(getEquationText)
 			.then(getEquations)
 			.then(getSymbols)
 
@@ -57,6 +65,8 @@ export const Canvas = props => {
 		const userEquations = getEquationsByUser(localStorage.getItem("fm_token"))
 		if (userEquations.length > 0) {
 			getSymbolsForEquation(userEquations[userEquations.length - 1].id)
+			getTextForEquation(userEquations[userEquations.length - 1].id)
+
 			setCurrentEquation(userEquations[userEquations.length - 1].id)
 		}
 	}, [equations])
@@ -70,7 +80,7 @@ export const Canvas = props => {
 
 	const redraw = () => {
 		if (symbols.length > 0 && gridSymbols.length === 0) {
-			fillSymbolGrid(symbols, rowLength, gridPadding, cellSize)
+			fillSymbolGrid(categorySymbols, rowLength, gridPadding, cellSize)
 		}
 		if (ctx) {
 			ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -80,13 +90,31 @@ export const Canvas = props => {
 			equationSymbols.forEach(s => {
 				if (!s.selected) {
 					const symbol = getSymbolById(s.symbol)
-					if(symbol)
+					if (symbol)
 						ctx.fillText(String.fromCharCode(symbol.entity_code), s.x, s.y)
+				}
+			})
+			equationText.forEach(t => {
+				if (!t.selected) {
+					ctx.fillText(t.content, t.x, t.y)
 				}
 			})
 			DrawLoad();
 			DrawNew();
+			DrawAddText();
 			ctx.fillText(currentEquation, canvas.width - 50, 20)
+		}
+	}
+
+	const DrawAddText = () => {
+		ctx.fillText("Add Text", 380, canvas.height - 50)
+		const metrics = ctx.measureText("Load")
+		addTextPos = {
+			top: canvas.height - 50,
+			left: 380,
+			right: 380 + metrics.width,
+			bottom: canvas.height - 50 - metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent
+
 		}
 	}
 
@@ -222,17 +250,32 @@ export const Canvas = props => {
 		gridSymbols.forEach(symbol => {
 			if (checkSymbolInGrid(symbol, mousePos)) {
 				clickedSymbol = symbol;
+				return;
 			}
 		});
 	}
 
 	const handleWhiteboardClickEvent = (e, mousePos) => {
-		for (let i = 0; i < equationSymbols.length; i++)
+		let found = false;
+		for (let i = 0; i < equationSymbols.length; i++) {
 			if (checkSymbolInWhiteboard(equationSymbols[i], mousePos)) {
 				selectedWhiteboardSymbol = equationSymbols[i];
 				equationSymbols[i].selected = true;
+				found = true;
 				break;
 			}
+		}
+
+		if (found)
+			return;
+
+		for (let i = 0; i < equationText.length; i++) {
+			if (checkSymbolInWhiteboard(equationText[i], mousePos)) {
+				selectedWhiteboardSymbol = equationText[i];
+				equationText[i].selected = true;
+				break;
+			}
+		}
 	}
 
 	const handleCanvasMouseDown = e => {
@@ -254,11 +297,23 @@ export const Canvas = props => {
 				ctx.fillText(String.fromCharCode(clickedSymbol.entity_code), mousePos.posX, mousePos.posY)
 			}
 			if (selectedWhiteboardSymbol) {
-				const symbol = getSymbolById(selectedWhiteboardSymbol.symbol)
-				ctx.fillText(String.fromCharCode(symbol.entity_code), mousePos.posX, mousePos.posY)
+				let symbol = undefined;
+				let metrics;
+
+				if (selectedWhiteboardSymbol.symbol)
+					symbol = getSymbolById(selectedWhiteboardSymbol.symbol)
+
+				if (!symbol) {
+					ctx.fillText(selectedWhiteboardSymbol.content, mousePos.posX, mousePos.posY)
+					metrics = ctx.measureText(selectedWhiteboardSymbol.content)
+
+				} else {
+					ctx.fillText(String.fromCharCode(symbol.entity_code), mousePos.posX, mousePos.posY)
+					metrics = ctx.measureText(String.fromCharCode(symbol.entity_code))
+				}
+
 				ctx.strokeStyle = "#000000"
 				ctx.lineWidth = 2
-				const metrics = ctx.measureText(String.fromCharCode(symbol.entity_code))
 				const width = metrics.width
 				const height = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent
 				ctx.strokeRect(mousePos.posX, mousePos.posY,
@@ -293,11 +348,17 @@ export const Canvas = props => {
 				selectedWhiteboardSymbol.x = mousePos.posX;
 				selectedWhiteboardSymbol.y = mousePos.posY;
 
-				updateEquationSymbol(selectedWhiteboardSymbol);
+				if (selectedWhiteboardSymbol.symbol)
+					updateEquationSymbol(selectedWhiteboardSymbol);
+				else
+					updateEquationText(selectedWhiteboardSymbol);
 
 				selectedWhiteboardSymbol = undefined;
 			} else {
-				removeEquationSymbol(selectedWhiteboardSymbol.id);
+				if (selectedWhiteboardSymbol.symbol)
+					removeEquationSymbol(selectedWhiteboardSymbol.id);
+				else
+					removeEquationText(selectedWhiteboardSymbol.id)
 				selectedWhiteboardSymbol = undefined;
 			}
 		}
@@ -313,6 +374,10 @@ export const Canvas = props => {
 			&& mousePos.posY > newPos.top && mousePos.posY < newPos.bottom) {
 			newDialog.current.showModal()
 		}
+		if (mousePos.posX > addTextPos.left && mousePos.posX < addTextPos.right
+			&& mousePos.posY > addTextPos.top && mousePos.posY < addTextPos.bottom) {
+			addTextDialog.current.showModal()
+		}
 
 		for (let i = 0; i < gridCategories.length; i++) {
 			if (mousePos.posX > gridCategories[i].left && mousePos.posX < gridCategories[i].right
@@ -325,19 +390,34 @@ export const Canvas = props => {
 
 	return (
 		<>
-
+			<dialog className="addTextDialog" ref={addTextDialog}>
+				<input type="text" ref={newText} />
+				<button className="button--add-text" onClick={() => {
+					if (canvas) {
+						addEquationText({
+							x: canvas.width / 2,
+							y: canvas.height / 2,
+							content: newText.current.value,
+							equation: currentEquation,
+							size: 1.0
+						})
+					}
+					addTextDialog.current.close()
+				}}>Add</button>
+				<button className="button--close" onClick={e => addTextDialog.current.close()}>Close</button>
+			</dialog>
 			<dialog className="newDialog" ref={newDialog}>
 				<input type="text" ref={newEquation}></input>
 				<button className="button--add" onClick={(e) => {
-					let id
+					let id;
 					addEquation({
 						user: localStorage.getItem("fm_token"),
 						name: newEquation.current.value
 					})
 						.then(res => {
 							console.log(res)
-							setCurrentEquation(id)
-							getEquations()
+							setCurrentEquation(res.id)
+							getEquations();
 						})
 					newDialog.current.close();
 				}}>Add</button>
@@ -355,6 +435,7 @@ export const Canvas = props => {
 				</select>
 				<button className="button--load" onClick={(e) => {
 					getSymbolsForEquation(loadEquation.current.value);
+					getTextForEquation(loadEquation.current.value);
 					setCurrentEquation(loadEquation.current.value)
 					loadDialog.current.close();
 				}}>Load</button>

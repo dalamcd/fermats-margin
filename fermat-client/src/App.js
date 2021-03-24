@@ -2,10 +2,10 @@ import React from "react"
 import { Login } from "./components/auth/Login"
 import { Register } from "./components/auth/Register"
 import { Canvas } from "./components/Canvas"
-import { SymbolProvider } from './components/symbols/SymbolProvider';
 import { Route, Redirect } from "react-router-dom"
+import { SymbolProvider } from './components/symbols/SymbolProvider';
 import { EquationProvider } from "./components/equations/EquationsProvider";
-
+import { EquationTextProvider } from "./components/symbols/EquationTextProvider";
 
 export const FermatsMargin = () => {
   return (
@@ -13,11 +13,13 @@ export const FermatsMargin = () => {
       <Route render={() => {
         if (localStorage.getItem("fm_token")) {
           return <>
-            <EquationProvider>
-              <SymbolProvider>
-                <Canvas />
-              </SymbolProvider>
-            </EquationProvider>
+            <EquationTextProvider>
+              <EquationProvider>
+                <SymbolProvider>
+                  <Canvas />
+                </SymbolProvider>
+              </EquationProvider>
+            </EquationTextProvider>
           </>
         } else {
           return <Redirect to="/login" />
