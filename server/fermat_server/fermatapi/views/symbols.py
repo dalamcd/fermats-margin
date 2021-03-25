@@ -15,7 +15,7 @@ class Symbols(ViewSet):
 		category = self.request.query_params.get("category", None)
 
 		if category is not None:
-			symbols = symbols.filter(symbolcategory__symbol_id=F('id')).filter(symbolcategory__category_id=category)
+			symbols = symbols.filter(symbolcategory__category_id=category)
 
 		data = SymbolSerializer(symbols, many=True, context={'request': request}).data
 

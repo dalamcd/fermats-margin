@@ -19,5 +19,12 @@
 		"fields": {
 			"name": "Algebra"
 		}
+	},
+	{
+		"model": "fermatapi.category",
+		"pk": 4,
+		"fields": {
+			"name": "Conditional Logic"
+		}
 	}
 ]

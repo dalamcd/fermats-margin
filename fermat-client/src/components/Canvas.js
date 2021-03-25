@@ -102,7 +102,8 @@ export const Canvas = props => {
 			DrawLoad();
 			DrawNew();
 			DrawAddText();
-			ctx.fillText(currentEquation, canvas.width - 50, 20)
+			//DEBUG
+			//ctx.fillText(currentEquation, canvas.width - 50, 20)
 		}
 	}
 
@@ -292,7 +293,8 @@ export const Canvas = props => {
 		const mousePos = getMousePos(e);
 		redraw();
 		if (ctx) {
-			ctx.fillText(`MouseX: ${mousePos.posX} MouseY: ${mousePos.posY}`, 20, window.innerHeight - 70)
+			//DEBUG
+			//ctx.fillText(`MouseX: ${mousePos.posX} MouseY: ${mousePos.posY}`, 20, window.innerHeight - 70)
 			if (clickedSymbol) {
 				ctx.fillText(String.fromCharCode(clickedSymbol.entity_code), mousePos.posX, mousePos.posY)
 			}
@@ -356,9 +358,9 @@ export const Canvas = props => {
 				selectedWhiteboardSymbol = undefined;
 			} else {
 				if (selectedWhiteboardSymbol.symbol)
-					removeEquationSymbol(selectedWhiteboardSymbol.id);
+					removeEquationSymbol(selectedWhiteboardSymbol);
 				else
-					removeEquationText(selectedWhiteboardSymbol.id)
+					removeEquationText(selectedWhiteboardSymbol)
 				selectedWhiteboardSymbol = undefined;
 			}
 		}

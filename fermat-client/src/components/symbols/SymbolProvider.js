@@ -11,24 +11,24 @@ export const SymbolProvider = props => {
 
 	const getSymbols = () => {
 		return fetch("http://localhost:8000/symbols")
-		.then(res => res.json())
-		.then(setSymbols)
+			.then(res => res.json())
+			.then(setSymbols)
 	}
 
 	const getCategories = () => {
 		return fetch(`http://localhost:8000/categories`)
-		.then(res => res.json())
-		.then(setCategories)
+			.then(res => res.json())
+			.then(setCategories)
 	}
 
 	const getSymbolsByCategory = id => {
 		return fetch(`http://localhost:8000/symbols?category=${id}`)
-		.then(res => res.json())
-		.then(setCategorySymbols)
+			.then(res => res.json())
+			.then(setCategorySymbols)
 	}
 
 	const getSymbolById = id => {
-		return symbols.find( s => {
+		return symbols.find(s => {
 			return s.id === parseInt(id)
 		})
 	}
@@ -41,21 +41,21 @@ export const SymbolProvider = props => {
 			},
 			body: JSON.stringify(symbol)
 		})
-		.then(() => {
-			getSymbolsForEquation(symbol.equation)
-		})
+			.then(() => {
+				getSymbolsForEquation(symbol.equation)
+			})
 	}
 
 	const getEquationSymbols = () => {
 		return fetch(`http://localhost:8000/equationsymbols`)
-		.then(res => res.json())
-		.then(setEquationSymbols)
+			.then(res => res.json())
+			.then(setEquationSymbols)
 	}
 
 	const getSymbolsForEquation = equationId => {
 		return fetch(`http://localhost:8000/equationsymbols/${equationId}`)
-		.then(res => res.json())
-		.then(setEquationSymbols)
+			.then(res => res.json())
+			.then(setEquationSymbols)
 	}
 
 	const updateEquationSymbol = symbol => {
@@ -66,23 +66,25 @@ export const SymbolProvider = props => {
 			},
 			body: JSON.stringify(symbol)
 		})
-		.then(() => {
-			getSymbolsForEquation(symbol.equation)
-		})
+			.then(() => {
+				getSymbolsForEquation(symbol.equation)
+			})
 	}
 
-	const removeEquationSymbol = id => {
-		return fetch(`http://localhost:8000/equationsymbols/${id}`, {
-		method: "DELETE"
+	const removeEquationSymbol = symbol => {
+		return fetch(`http://localhost:8000/equationsymbols/${symbol.id}`, {
+			method: "DELETE"
 		})
-		.then(getEquationSymbols)
+			.then(() => {
+				getSymbolsForEquation(symbol.equation)
+			})
 	}
 
-	return <SymbolContext.Provider value={{
-		symbols, setSymbols, getSymbols, getSymbolsByCategory, getSymbolById, addEquationSymbol, getEquationSymbols,
-		equationSymbols, setEquationSymbols, updateEquationSymbol, removeEquationSymbol, getSymbolsForEquation,
-		categories, getCategories, categorySymbols, setCategorySymbols
-	}}>
-		{props.children}
-	</SymbolContext.Provider>
+return <SymbolContext.Provider value={{
+	symbols, setSymbols, getSymbols, getSymbolsByCategory, getSymbolById, addEquationSymbol, getEquationSymbols,
+	equationSymbols, setEquationSymbols, updateEquationSymbol, removeEquationSymbol, getSymbolsForEquation,
+	categories, getCategories, categorySymbols, setCategorySymbols
+}}>
+	{props.children}
+</SymbolContext.Provider>
 }

@@ -3,8 +3,8 @@
 		"model": "fermatapi.symbolcategory",
 		"pk": 1,
 		"fields": {
-			"symbol_id": 3,
-			"category_id": 1
+			"symbol_id": 1,
+			"category_id": 2
 		}
 	},
 	{
@@ -12,7 +12,7 @@
 		"pk": 2,
 		"fields": {
 			"symbol_id": 1,
-			"category_id": 2
+			"category_id": 3
 		}
 	},
 	{
@@ -20,7 +20,31 @@
 		"pk": 3,
 		"fields": {
 			"symbol_id": 2,
+			"category_id": 2
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 4,
+		"fields": {
+			"symbol_id": 3,
 			"category_id": 1
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 5,
+		"fields": {
+			"symbol_id": 4,
+			"category_id": 1
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 6,
+		"fields": {
+			"symbol_id": 5,
+			"category_id": 4
 		}
 	}
 ]

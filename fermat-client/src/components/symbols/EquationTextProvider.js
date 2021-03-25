@@ -39,17 +39,18 @@ export const EquationTextProvider = props => {
 			},
 			body: JSON.stringify(text)
 		})
-			//.then(getEquationText)
 			.then(() => {
 				getTextForEquation(text.equation)
 			})
 	}
 
-	const removeEquationText = id => {
-		return fetch(`http://localhost:8000/equationtext/${id}`, {
+	const removeEquationText = text => {
+		return fetch(`http://localhost:8000/equationtext/${text.id}`, {
 			method: "DELETE"
 		})
-			.then(getEquationText)
+		.then(() => {
+			getTextForEquation(text.equation)
+		})
 	}
 
 	return <EquationTextContext.Provider value={{
