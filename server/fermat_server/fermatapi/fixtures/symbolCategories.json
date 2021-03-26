@@ -46,5 +46,285 @@
 			"symbol_id": 5,
 			"category_id": 4
 		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 7,
+		"fields": {
+			"symbol_id": 6,
+			"category_id": 2
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 8,
+		"fields": {
+			"symbol_id": 6,
+			"category_id": 3
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 9,
+		"fields": {
+			"symbol_id": 8,
+			"category_id": 2
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 10,
+		"fields": {
+			"symbol_id": 8,
+			"category_id": 3
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 11,
+		"fields": {
+			"symbol_id": 9,
+			"category_id": 2
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 12,
+		"fields": {
+			"symbol_id": 9,
+			"category_id": 3
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 13,
+		"fields": {
+			"symbol_id": 10,
+			"category_id": 2
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 14,
+		"fields": {
+			"symbol_id": 10,
+			"category_id": 3
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 15,
+		"fields": {
+			"symbol_id": 11,
+			"category_id": 2
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 16,
+		"fields": {
+			"symbol_id": 11,
+			"category_id": 3
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 17,
+		"fields": {
+			"symbol_id": 12,
+			"category_id": 2
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 18,
+		"fields": {
+			"symbol_id": 12,
+			"category_id": 3
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 19,
+		"fields": {
+			"symbol_id": 13,
+			"category_id": 2
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 20,
+		"fields": {
+			"symbol_id": 13,
+			"category_id": 3
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 21,
+		"fields": {
+			"symbol_id": 14,
+			"category_id": 2
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 22,
+		"fields": {
+			"symbol_id": 14,
+			"category_id": 3
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 23,
+		"fields": {
+			"symbol_id": 15,
+			"category_id": 1
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 24,
+		"fields": {
+			"symbol_id": 15,
+			"category_id": 2
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 25,
+		"fields": {
+			"symbol_id": 15,
+			"category_id": 3
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 26,
+		"fields": {
+			"symbol_id": 16,
+			"category_id": 2
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 27,
+		"fields": {
+			"symbol_id": 17,
+			"category_id": 4
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 28,
+		"fields": {
+			"symbol_id": 18,
+			"category_id": 4
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 29,
+		"fields": {
+			"symbol_id": 19,
+			"category_id": 4
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 30,
+		"fields": {
+			"symbol_id": 7,
+			"category_id": 2
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 31,
+		"fields": {
+			"symbol_id": 7,
+			"category_id": 3
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 32,
+		"fields": {
+			"symbol_id": 21,
+			"category_id": 4
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 33,
+		"fields": {
+			"symbol_id": 22,
+			"category_id": 4
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 34,
+		"fields": {
+			"symbol_id": 23,
+			"category_id": 4
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 35,
+		"fields": {
+			"symbol_id": 23,
+			"category_id": 1
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 36,
+		"fields": {
+			"symbol_id": 24,
+			"category_id": 1
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 37,
+		"fields": {
+			"symbol_id": 24,
+			"category_id": 4
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 38,
+		"fields": {
+			"symbol_id": 25,
+			"category_id": 1
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 39,
+		"fields": {
+			"symbol_id": 26,
+			"category_id": 1
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 40,
+		"fields": {
+			"symbol_id": 28,
+			"category_id": 1
+		}
+	},
+	{
+		"model": "fermatapi.symbolcategory",
+		"pk": 41,
+		"fields": {
+			"symbol_id": 29,
+			"category_id": 4
+		}
 	}
 ]

@@ -38,5 +38,197 @@
 			"name": "Logical And",
 			"entity_code": 8896
 		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 6,
+		"fields": {
+			"name": "Lesser Than",
+			"entity_code": 60
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 7,
+		"fields": {
+			"name": "Greater Than",
+			"entity_code": 62
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 8,
+		"fields": {
+			"name": "Lesser Than Or Equal",
+			"entity_code": 8804
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 9,
+		"fields": {
+			"name": "Greater Than Or Equal",
+			"entity_code": 8805
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 10,
+		"fields": {
+			"name": "Function",
+			"entity_code": 402
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 11,
+		"fields": {
+			"name": "X (Multiplication)",
+			"entity_code": 215
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 12,
+		"fields": {
+			"name": "Minus",
+			"entity_code": 8722
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 13,
+		"fields": {
+			"name": "Square Root",
+			"entity_code": 8730
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 14,
+		"fields": {
+			"name": "Cube Root",
+			"entity_code": 8731
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 15,
+		"fields": {
+			"name": "Infinity",
+			"entity_code": 8734
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 16,
+		"fields": {
+			"name": "Prime",
+			"entity_code": 8242
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 17,
+		"fields": {
+			"name": "For All",
+			"entity_code": 8704
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 18,
+		"fields": {
+			"name": "There Exists",
+			"entity_code": 8707
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 19,
+		"fields": {
+			"name": "Logical Not",
+			"entity_code": 172
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 20,
+		"fields": {
+			"name": "Empty Set",
+			"entity_code": 8856
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 21,
+		"fields": {
+			"name": "Logical Or",
+			"entity_code": 8744
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 22,
+		"fields": {
+			"name": "Does Not Exist",
+			"entity_code": 8708
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 23,
+		"fields": {
+			"name": "Element Of",
+			"entity_code": 8712
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 24,
+		"fields": {
+			"name": "Not An Element Of",
+			"entity_code": 8713
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 25,
+		"fields": {
+			"name": "Proper Subset",
+			"entity_code": 8834
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 26,
+		"fields": {
+			"name": "Subset",
+			"entity_code": 8838
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 27,
+		"fields": {
+			"name": "Superset",
+			"entity_code": 8835
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 28,
+		"fields": {
+			"name": "Proper Superset",
+			"entity_code": 8839
+		}
+	},
+	{
+		"model": "fermatapi.symbol",
+		"pk": 29,
+		"fields": {
+			"name": "Such That",
+			"entity_code": 8739
+		}
 	}
 ]
